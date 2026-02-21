@@ -1,0 +1,102 @@
+.cash-savings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.cash-savings-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+  color: var(--text-muted);
+  font-size: var(--font-ui-small);
+}
+
+.cash-savings-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+.cash-savings-table th,
+.cash-savings-table td {
+  border-bottom: 1px solid var(--background-modifier-border);
+  padding: 0.45rem 0.4rem;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.cash-savings-table th {
+  font-weight: 600;
+}
+
+.cash-savings-row-actions {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.cash-savings-action-button {
+  min-width: 2rem;
+  padding: 0.2rem 0.45rem;
+}
+
+.cash-savings-total {
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.cash-savings-plan {
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 8px;
+  padding: 0.75rem;
+}
+
+.cash-savings-plan h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.cash-savings-projection {
+  margin-top: 0.75rem;
+  font-weight: 600;
+}
+
+.cash-savings-modal-hint {
+  color: var(--text-muted);
+  font-size: var(--font-ui-small);
+}
+
+.cash-savings-modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .cash-savings-table thead {
+    display: none;
+  }
+
+  .cash-savings-table tr {
+    display: block;
+    border-bottom: 1px solid var(--background-modifier-border);
+    padding: 0.4rem 0;
+  }
+
+  .cash-savings-table td {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: none;
+    padding: 0.2rem 0;
+  }
+
+  .cash-savings-table td::before {
+    content: attr(data-label);
+    color: var(--text-muted);
+    margin-right: 1rem;
+  }
+}
