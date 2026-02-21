@@ -23,9 +23,8 @@ export default class CashSavingsPlugin extends Plugin {
   planService!: PlanService;
 
   async onload(): Promise<void> {
-    await this.loadSettings();
+    await this.loadSettingsSafe();
     this.rebuildRepositories();
-    await this.walletRepository.ensureWalletExists();
 
     this.registerView(
       DASHBOARD_VIEW_TYPE,
@@ -49,6 +48,16 @@ export default class CashSavingsPlugin extends Plugin {
     });
 
     this.addSettingTab(new CashSavingsSettingTab(this.app, this));
+  
+    // Do not block plugin activation on vault IO.
+    void this.walletRepository.ensureWalletExists().catch((error) => {
+      const message =
+        error instanceof Error
+          ? error.message
+          : "Failed to initialize wallet file.";
+      console.error("[cash-savings] wallet init error", error);
+      new Notice(message);
+    });
   }
 
   onunload(): void {
@@ -107,6 +116,15 @@ export default class CashSavingsPlugin extends Plugin {
   private async loadSettings(): Promise<void> {
     const loaded = await this.loadData();
     this.settings = this.normalizeSettings(loaded);
+    }
+
+  private async loadSettingsSafe(): Promise<void> {
+    try {
+      await this.loadSettings();
+    } catch (error) {
+      console.error("[cash-savings] failed to load settings, using defaults", error);
+      this.settings = this.normalizeSettings(DEFAULT_SETTINGS);
+    }
   }
 
   private normalizeSettings(raw: unknown): CashSavingsSettings {
