@@ -8,28 +8,61 @@ Cash & Savings считает наличные по номиналам, пока
 ```bash
 npm install
 npm run build
-```
-2. Скопируйте файлы `manifest.json`, `main.js`, `styles.css` в:
-`<Ваш Vault>/.obsidian/plugins/cash-savings/`
-3. Перезапустите Obsidian или нажмите `Reload plugins`.
-4. Включите плагин `Cash & Savings` в `Settings -> Community plugins`.
 
-## Wallet location
+Скопируйте файлы manifest.json, main.js, styles.css в:
+<Ваш Vault>/.obsidian/plugins/cash-savings/
 
-- По умолчанию кошелёк хранится в `Finance/Wallet.md`.
-- Папка логов по умолчанию: `Finance/Logs`.
-- Оба пути и валюта настраиваются в `Settings -> Cash & Savings`.
+Перезапустите Obsidian или нажмите Reload plugins.
 
-## Operations
+Включите плагин Cash & Savings в Settings -> Community plugins.
 
-- `Deposit`: прибавляет введённые количества к текущим `counts`.
-- `Withdraw`: вычитает введённые количества из текущих `counts`.
-- `Set counts`: полностью задаёт абсолютные количества по каждому номиналу.
-- Отрицательные остатки запрещены: операция с уходом в минус отклоняется.
+Запуск Dashboard (панели плагина)
 
-## Wallet YAML example
+Откройте командную палитру Obsidian:
 
-```yaml
+Windows/Linux: Ctrl + P
+
+macOS: Cmd + P
+
+Найдите команду:
+
+Cash & Savings: Open Dashboard
+
+Нажмите Enter — откроется панель Cash & Savings.
+
+Первый запуск
+
+Если файла кошелька ещё нет, плагин автоматически создаст:
+
+Finance/Wallet.md
+
+Finance/Logs/ (папка для логов)
+
+Если после перезапуска Obsidian панель “пропала”
+
+Иногда Obsidian может не восстановить вкладку автоматически. В этом случае:
+
+просто снова запустите Cash & Savings: Open Dashboard через Ctrl/Cmd + P.
+
+Wallet location
+
+По умолчанию кошелёк хранится в Finance/Wallet.md.
+
+Папка логов по умолчанию: Finance/Logs.
+
+Оба пути и валюта настраиваются в Settings -> Cash & Savings.
+
+Operations
+
+Deposit: прибавляет введённые количества к текущим counts.
+
+Withdraw: вычитает введённые количества из текущих counts.
+
+Set counts: полностью задаёт абсолютные количества по каждому номиналу.
+
+Отрицательные остатки запрещены: операция с уходом в минус отклоняется.
+
+Wallet YAML example
 ---
 type: cash_wallet
 schema_version: 1
@@ -60,11 +93,7 @@ goal:
   target: 200000
   deadline: 2026-12-31
 ---
-```
-
-## Log YAML example
-
-```yaml
+Log YAML example
 ---
 id: 2026-02-21T12:00:00.000Z-a1b2c3d4
 type: cash_log
@@ -82,4 +111,4 @@ total_before: 7340
 total_after: 12240
 comment: пополнение
 ---
-```
+::contentReference[oaicite:0]{index=0}
