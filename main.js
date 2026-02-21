@@ -5347,9 +5347,8 @@ var CashSavingsPlugin = class extends import_obsidian6.Plugin {
     this.settings = DEFAULT_SETTINGS;
   }
   async onload() {
-    await this.loadSettings();
+    await this.loadSettingsSafe();
     this.rebuildRepositories();
-    await this.walletRepository.ensureWalletExists();
     this.registerView(
       DASHBOARD_VIEW_TYPE,
       (leaf) => new DashboardView(leaf, this)
@@ -5369,6 +5368,11 @@ var CashSavingsPlugin = class extends import_obsidian6.Plugin {
       }
     });
     this.addSettingTab(new CashSavingsSettingTab(this.app, this));
+      void this.walletRepository.ensureWalletExists().catch((error) => {
+      const message = error instanceof Error ? error.message : "Failed to initialize wallet file.";
+      console.error("[cash-savings] wallet init error", error);
+      new import_obsidian6.Notice(message);
+    });
   }
   onunload() {
     this.app.workspace.detachLeavesOfType(DASHBOARD_VIEW_TYPE);
@@ -5417,6 +5421,14 @@ var CashSavingsPlugin = class extends import_obsidian6.Plugin {
   async loadSettings() {
     const loaded = await this.loadData();
     this.settings = this.normalizeSettings(loaded);
+    }
+  async loadSettingsSafe() {
+    try {
+      await this.loadSettings();
+    } catch (error) {
+      console.error("[cash-savings] failed to load settings, using defaults", error);
+      this.settings = this.normalizeSettings(DEFAULT_SETTINGS);
+    }
   }
   normalizeSettings(raw) {
     const source = ensureCashSavingsSettings(raw);
