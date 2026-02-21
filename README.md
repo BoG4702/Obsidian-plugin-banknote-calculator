@@ -1,22 +1,63 @@
-# Cash & Savings (Obsidian Community Plugin)
+# Cash & Savings — Obsidian Community Plugin  
+**RU / EN** • Track cash by denomination, plan savings, and keep operation logs (YAML-backed).
 
-Cash & Savings считает наличные по номиналам, показывает общий итог, хранит план накоплений и создаёт логи операций.
+---
 
-## Manual install
+## 🇷🇺 Русский
 
-1. В корне проекта выполните:
+### 📌 Описание
+**Cash & Savings** — плагин для Obsidian, который помогает вести учёт наличных по номиналам (купюры и монеты), автоматически считает общий итог, позволяет составлять простой план накоплений и ведёт логи операций.
+
+Данные хранятся прямо в вашем vault в виде **Markdown-заметок** с **YAML frontmatter**, поэтому всё прозрачно, синхронизируется и легко бэкапится.
+
+---
+
+## ✨ Возможности
+
+- **Учёт купюр и монет по номиналам**
+  - Подсчёт суммы по каждому номиналу и общего итога
+- **Операции**
+  - `Deposit` — добавить количества
+  - `Withdraw` — убрать количества
+  - `Set counts` — задать абсолютные количества
+  - Отрицательные остатки **запрещены**
+- **План накоплений**
+  - `monthly × months` → прогноз итоговой суммы
+- **Логи операций**
+  - Запись каждого изменения: время, тип операции, дельта по номиналам, комментарий, итог после операции
+
+---
+
+## 🚀 Установка (Manual install)
+
+1) В корне проекта выполните:
 ```bash
 npm install
 npm run build
 
-Скопируйте файлы manifest.json, main.js, styles.css в:
+2) Скопируйте только эти файлы:
+
+manifest.json
+
+main.js
+
+styles.css (если есть)
+
+в папку:
 <Ваш Vault>/.obsidian/plugins/cash-savings/
 
-Перезапустите Obsidian или нажмите Reload plugins.
+Пример:
+YourVault/.obsidian/plugins/cash-savings/manifest.json
 
-Включите плагин Cash & Savings в Settings -> Community plugins.
+Перезапустите Obsidian
+или нажмите: Settings → Community plugins → Reload plugins.
 
-Запуск Dashboard (панели плагина)
+Включите плагин:
+Settings → Community plugins → Cash & Savings
+
+⚠️ Не копируйте node_modules/ и папку src/ в vault — Obsidian использует только main.js, manifest.json, styles.css.
+
+🧭 Запуск Dashboard (панели)
 
 Откройте командную палитру Obsidian:
 
@@ -24,11 +65,11 @@ Windows/Linux: Ctrl + P
 
 macOS: Cmd + P
 
-Найдите команду:
+Запустите команду:
 
 Cash & Savings: Open Dashboard
 
-Нажмите Enter — откроется панель Cash & Savings.
+Откроется панель Cash & Savings.
 
 Первый запуск
 
@@ -36,23 +77,22 @@ Cash & Savings: Open Dashboard
 
 Finance/Wallet.md
 
-Finance/Logs/ (папка для логов)
+Finance/Logs/ (папка логов)
 
-Если после перезапуска Obsidian панель “пропала”
+⚙️ Настройки и расположение данных
 
-Иногда Obsidian может не восстановить вкладку автоматически. В этом случае:
+По умолчанию:
 
-просто снова запустите Cash & Savings: Open Dashboard через Ctrl/Cmd + P.
+Wallet: Finance/Wallet.md
 
-Wallet location
+Logs: Finance/Logs
 
-По умолчанию кошелёк хранится в Finance/Wallet.md.
+Currency: RUB
 
-Папка логов по умолчанию: Finance/Logs.
+Можно изменить в:
+Settings → Cash & Savings
 
-Оба пути и валюта настраиваются в Settings -> Cash & Savings.
-
-Operations
+🔁 Операции (как работает логика)
 
 Deposit: прибавляет введённые количества к текущим counts.
 
@@ -60,8 +100,9 @@ Withdraw: вычитает введённые количества из теку
 
 Set counts: полностью задаёт абсолютные количества по каждому номиналу.
 
-Отрицательные остатки запрещены: операция с уходом в минус отклоняется.
+Если операция уводит какой-то номинал в минус → операция отклоняется.
 
+🗂 Формат данных (YAML examples)
 Wallet YAML example
 ---
 type: cash_wallet
@@ -93,6 +134,7 @@ goal:
   target: 200000
   deadline: 2026-12-31
 ---
+
 Log YAML example
 ---
 id: 2026-02-21T12:00:00.000Z-a1b2c3d4
@@ -111,4 +153,240 @@ total_before: 7340
 total_after: 12240
 comment: пополнение
 ---
-::contentReference[oaicite:0]{index=0}
+
+Troubleshooting (частые проблемы)
+Плагин не загружается
+
+Откройте DevTools: Ctrl + Shift + I → вкладка Console
+
+Посмотрите сообщение об ошибке
+
+Чаще всего помогает:
+
+пересобрать: npm run build
+
+заново скопировать main.js в папку плагина
+
+перезапустить Obsidian
+
+После перезапуска Obsidian вкладка Dashboard “пропала”
+
+Просто снова запустите:
+Cash & Savings: Open Dashboard через Ctrl/Cmd + P.
+
+🗺 Roadmap (идеи на будущее)
+
+Графики (динамика баланса, пополнения по времени)
+
+Экспорт логов в CSV
+
+Поддержка нескольких кошельков
+
+Умный прогноз достижения цели по истории логов
+
+📄 License
+
+Добавьте лицензию (например, MIT) в LICENSE.
+
+🇬🇧 English
+📌 Overview
+
+Cash & Savings is an Obsidian plugin that helps you track cash by denomination (banknotes & coins), calculate totals automatically, maintain a simple savings plan, and keep operation logs.
+
+All data is stored inside your vault as Markdown notes with YAML frontmatter, which makes it transparent, sync-friendly, and easy to back up.
+
+✨ Features
+
+Cash tracking by denomination
+
+Per-denomination breakdown + grand total
+
+Operations
+
+Deposit — add counts
+
+Withdraw — subtract counts
+
+Set counts — set absolute counts
+
+Negative balances are not allowed
+
+Savings plan
+
+monthly × months → projected total
+
+Operation logs
+
+Records each change: timestamp, operation type, delta, comment, total after
+
+🚀 Manual Install
+
+In the project root:
+Troubleshooting (частые проблемы)
+Плагин не загружается
+
+Откройте DevTools: Ctrl + Shift + I → вкладка Console
+
+Посмотрите сообщение об ошибке
+
+Чаще всего помогает:
+
+пересобрать: npm run build
+
+заново скопировать main.js в папку плагина
+
+перезапустить Obsidian
+
+После перезапуска Obsidian вкладка Dashboard “пропала”
+
+Просто снова запустите:
+Cash & Savings: Open Dashboard через Ctrl/Cmd + P.
+
+🗺 Roadmap (идеи на будущее)
+
+Графики (динамика баланса, пополнения по времени)
+
+Экспорт логов в CSV
+
+Поддержка нескольких кошельков
+
+Умный прогноз достижения цели по истории логов
+
+📄 License
+
+Добавьте лицензию (например, MIT) в LICENSE.
+
+🇬🇧 English
+📌 Overview
+
+Cash & Savings is an Obsidian plugin that helps you track cash by denomination (banknotes & coins), calculate totals automatically, maintain a simple savings plan, and keep operation logs.
+
+All data is stored inside your vault as Markdown notes with YAML frontmatter, which makes it transparent, sync-friendly, and easy to back up.
+
+✨ Features
+
+Cash tracking by denomination
+
+Per-denomination breakdown + grand total
+
+Operations
+
+Deposit — add counts
+
+Withdraw — subtract counts
+
+Set counts — set absolute counts
+
+Negative balances are not allowed
+
+Savings plan
+
+monthly × months → projected total
+
+Operation logs
+
+Records each change: timestamp, operation type, delta, comment, total after
+
+🚀 Manual Install
+
+In the project root:
+npm install
+npm run build
+
+Copy only these files:
+
+manifest.json
+
+main.js
+
+styles.css (if present)
+
+into:
+<Your Vault>/.obsidian/plugins/cash-savings/
+
+Restart Obsidian
+or click: Settings → Community plugins → Reload plugins.
+
+Enable the plugin:
+Settings → Community plugins → Cash & Savings
+
+⚠️ Do NOT copy node_modules/ or src/ into your vault — Obsidian only needs main.js, manifest.json, styles.css.
+
+🧭 Launching the Dashboard
+
+Open Command Palette:
+
+Windows/Linux: Ctrl + P
+
+macOS: Cmd + P
+
+Run:
+
+Cash & Savings: Open Dashboard
+
+The Cash & Savings dashboard will open.
+
+First launch
+
+If the wallet note doesn’t exist yet, the plugin will create:
+
+Finance/Wallet.md
+
+Finance/Logs/ (logs folder)
+
+⚙️ Settings & Data Locations
+
+Defaults:
+
+Wallet: Finance/Wallet.md
+
+Logs: Finance/Logs
+
+Currency: RUB
+
+You can change them in:
+Settings → Cash & Savings
+
+🔁 Operations (How it works)
+
+Deposit: adds entered counts to current counts.
+
+Withdraw: subtracts entered counts from current counts.
+
+Set counts: sets absolute counts for each denomination.
+
+If any denomination becomes negative → the operation is rejected.
+
+🗂 Data Format (YAML examples)
+
+See the Wallet YAML example and Log YAML example above (same structure).
+
+🧯 Troubleshooting
+Plugin fails to load
+
+Open DevTools: Ctrl + Shift + I → Console
+
+Check the error message
+
+Common fixes:
+
+rebuild: npm run build
+
+recopy main.js into the plugin folder
+
+restart Obsidian
+
+Dashboard tab disappears after restarting Obsidian
+
+Just run:
+Cash & Savings: Open Dashboard again via Ctrl/Cmd + P.
+
+🗺 Roadmap
+
+Charts (balance over time, deposits over time)
+
+Export logs to CSV
+
+Multi-wallet support
+
+Smarter goal forecasting based on log history
